@@ -64,8 +64,6 @@ public class LoginServlets extends HttpServlet {
                 session.setAttribute("username", user.getName());
                 request.getRequestDispatcher("WEB-INF/views/HelloWorld.jsp").forward(request, response);
             }
-//            json = gson.toJson(true);
-//            response.sendRedirect("home.jsp");
         }catch(Exception e){
             request.setAttribute("msg", "A Senha informada é inválida ou seu usuário está bloqueado!");
             request.getRequestDispatcher("index.jsp").forward(request, response);

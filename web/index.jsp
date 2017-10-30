@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 30/10/2017, 20:31:14
-    Author     : vinicius.rebello
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,6 +42,7 @@
                 </div>
             </div>
         </div>
+                        
         <script src="assets/js/jquery.min.js" type="text/javascript"></script>
         <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="assets/js/material.min.js"></script>
