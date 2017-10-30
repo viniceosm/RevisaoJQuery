@@ -47,25 +47,7 @@ $(document).ready(function () {
             }
         });
     });
-    
-    $("#formLogin").submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: 'login',
-            data: new FormData($("#formLogin")[0]),
-            cache: false,
-            success: function (result) {
-                console.log(result);
-            },
-            error: function () {
-                alert("Não consegui fazer o login");
-            }
-        });
-    });
-
-
+   
     adicionarOptionComboCidade("op3", "Guaramirin");
     adicionarOptionComboCidade("op4", "Schroeder");
     //mostrarMensagem("Montei todos objetos!");

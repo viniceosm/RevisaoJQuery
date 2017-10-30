@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : 30/10/2017, 20:31:14
+    Author     : vinicius.rebello
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,17 +31,18 @@
                 <div class="col-md-5 col-md-offset-4">
                     <div class="panel">
                         <div class="panel-body">
-                            <form id="formLogin" action="login" method="post">
+                            <form id="formLogin" action="signin" method="post">
                                 <div class="form-group">
                                     <label class="control-label" for="usuario">Usuário</label>
-                                    <input type="text" class="form-control" id="usuario" name="usuario" autofocus required>
+                                    <input type="text" class="form-control" id="usuario" name="login" autofocus required>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha" name="senha" required>
+                                    <input type="password" class="form-control" id="senha" name="passwd" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">entrar</button>
                             </form>
+                            ${msg}
                         </div>
                     </div>
                 </div>

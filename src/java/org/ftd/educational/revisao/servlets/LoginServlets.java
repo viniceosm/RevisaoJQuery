@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.ftd.educational.catolica.prog4.daos.UserDAO;
 import org.ftd.educational.catolica.prog4.entities.User;
 
@@ -24,7 +25,7 @@ import org.ftd.educational.catolica.prog4.entities.User;
  *
  * @author vinicius.rebello
  */
-@WebServlet(name = "LoginServlets", urlPatterns = {"/login"})
+@WebServlet(name = "LoginServlets", urlPatterns = {"/signin"})
 public class LoginServlets extends HttpServlet {
     
     final String PERSISTENCE_UNIT_NAME = "persistenciaPU";
@@ -40,36 +41,35 @@ public class LoginServlets extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        response.setContentType("text/plain");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
-        String usuario = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
+        String usuario = request.getParameter("login");
+        String senha = request.getParameter("passwd");
         
-        System.out.println("nome"+usuario);
-        System.out.println("senha"+senha);
+        System.out.println("login: " + usuario);
+        System.out.println("senha: " + senha);
         
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         
         UserDAO userDao = new UserDAO(factory);
-        
-        Gson gson = new Gson();
-        
-        String json;
-                
+
+        User user;
         try{
-            User user = userDao.findUser(usuario, senha);
-            System.out.println("Sucesso: " + user);
+            user = userDao.findUser(usuario, senha);
             
-             json = gson.toJson(true);
+            if((user != null)){
+                HttpSession session = request.getSession(true);
+                session.setAttribute("userid", Long.toString(user.getId()));
+                session.setAttribute("username", user.getName());
+                request.getRequestDispatcher("WEB-INF/views/HelloWorld.jsp").forward(request, response);
+            }
+//            json = gson.toJson(true);
+//            response.sendRedirect("home.jsp");
         }catch(Exception e){
-            System.out.println("Autenticação falhou: " + usuario);
-            json = gson.toJson(false);
+            request.setAttribute("msg", "A Senha informada é inválida ou seu usuário está bloqueado!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-        
-        out.append(json);
-        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
